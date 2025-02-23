@@ -103,7 +103,7 @@ body.night-mode .dropdown select:focus, body.night-mode .dropdown input[list]:fo
     width: 100%;
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #0078d7;
+    background-color: #fb1a1a;
     color: white;
     border: none;
     border-radius: 8px;
@@ -113,7 +113,7 @@ body.night-mode .dropdown select:focus, body.night-mode .dropdown input[list]:fo
 }
 
 #resetButton:hover {
-    background-color: #005bb5;
+    background-color: #d20404;
 }
 
 .switch {
