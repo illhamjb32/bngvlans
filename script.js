@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const resetButton = document.getElementById('resetButton');
             const modeSwitch = document.getElementById('modeSwitch');
             const card = document.querySelector('.card');
+            const copyButton = document.getElementById('copyButton'); // Copy button element
 
             const regions = [...new Set(rows.map(row => row[0]))];
             regions.forEach(region => {
@@ -27,6 +28,21 @@ document.addEventListener("DOMContentLoaded", function() {
                 option.textContent = region;
                 regionDropdown.appendChild(option);
             });
+
+            function updateLabels() {
+                const selectedVlan = vlanInput.value;
+                const selectedRegion = regionDropdown.value;
+                const row = rows.find(row => row[1] === selectedVlan && row[0] === selectedRegion);
+                if (row) {
+                    const bng = row[2];
+                    const nas = row[3];
+                    bngLabel.textContent = `${bng}`;
+                    nasLabel.textContent = `NAS: ${nas}`;
+                } else {
+                    bngLabel.textContent = 'BNG';
+                    nasLabel.textContent = 'NAS';
+                }
+            }
 
             regionDropdown.addEventListener('change', () => {
                 vlanInput.disabled = false;
@@ -38,20 +54,10 @@ document.addEventListener("DOMContentLoaded", function() {
                     option.value = vlan;
                     vlanOptions.appendChild(option);
                 });
-                bngLabel.textContent = 'BNG';
-                nasLabel.textContent = 'NAS';
+                updateLabels();
             });
 
-            vlanInput.addEventListener('input', () => {
-                const selectedVlan = vlanInput.value;
-                const row = rows.find(row => row[1] === selectedVlan && row[0] === regionDropdown.value);
-                if (row) {
-                    const bng = row[2];
-                    const nas = row[3];
-                    bngLabel.textContent = `${bng}`;
-                    nasLabel.textContent = `NAS: ${nas}`;
-                }
-            });
+            vlanInput.addEventListener('input', updateLabels);
 
             resetButton.addEventListener('click', () => {
                 regionDropdown.value = '';
@@ -66,6 +72,19 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.body.classList.toggle('night-mode');
                 card.classList.toggle('night-mode');
             });
+
+            // Copy button functionality
+            copyButton.addEventListener('click', () => {
+                const bngText = bngLabel.textContent;
+                navigator.clipboard.writeText(bngText)
+                    .then(() => {
+                        alert(bngText+' copied to clipboard');
+                    })
+                    .catch(err => {
+                        console.error('Failed to copy text: ', err);
+                    });
+            });
+
         })
         .catch(error => console.error('Error fetching spreadsheet data:', error));
 });

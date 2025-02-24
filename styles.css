@@ -99,10 +99,15 @@ body.night-mode .dropdown select:focus, body.night-mode .dropdown input[list]:fo
     background-color: #444;
 }
 
-#resetButton {
-    width: 100%;
+#resetButtonContainer {
+    display: flex;
+    justify-content: flex-start; /* Align to the left */
     margin-top: 20px;
-    padding: 10px 20px;
+}
+
+#resetButton {
+    width: auto; /* Adjust width to fit the content */
+    padding: 8px 16px; /* Adjust padding for a smaller button */
     background-color: #fb1a1a;
     color: white;
     border: none;
@@ -110,11 +115,13 @@ body.night-mode .dropdown select:focus, body.night-mode .dropdown input[list]:fo
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    margin-left: 0; /* Align to the left */
 }
 
 #resetButton:hover {
     background-color: #d20404;
 }
+
 
 .switch {
     position: absolute;
@@ -161,4 +168,29 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
+}
+
+#copyButton {
+    width: auto;
+    padding: 8px 16px;
+    background-color: #0078d7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+}
+
+#copyButton:hover {
+    background-color: #005bb5;
+}
+
+body.night-mode #copyButton {
+    background-color: #005bb5;
+}
+
+body.night-mode #copyButton:hover {
+    background-color: #003f8a;
 }
