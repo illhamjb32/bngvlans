@@ -21,6 +21,14 @@ document.addEventListener("DOMContentLoaded", function() {
             const card = document.querySelector('.card');
             const copyButton = document.getElementById('copyButton'); // Copy button element
 
+            // Apply saved mode on page load
+            const savedMode = localStorage.getItem('mode');
+            if (savedMode === 'night') {
+                document.body.classList.add('night-mode');
+                card.classList.add('night-mode');
+                modeSwitch.checked = true;
+            }
+
             const regions = [...new Set(rows.map(row => row[0]))];
             regions.forEach(region => {
                 const option = document.createElement('option');
@@ -71,14 +79,29 @@ document.addEventListener("DOMContentLoaded", function() {
             modeSwitch.addEventListener('change', () => {
                 document.body.classList.toggle('night-mode');
                 card.classList.toggle('night-mode');
+                localStorage.setItem('mode', modeSwitch.checked ? 'night' : 'day');
             });
 
-            // Copy button functionality
+            // Copy button functionality with auto-closing notification at the top
             copyButton.addEventListener('click', () => {
                 const bngText = bngLabel.textContent;
                 navigator.clipboard.writeText(bngText)
                     .then(() => {
-                        alert(bngText+' copied to clipboard');
+                        const alertElement = document.createElement('div');
+                        alertElement.textContent = bngText + ' copied to clipboard';
+                        alertElement.style.position = 'fixed';
+                        alertElement.style.top = '20px'; // Position at the top
+                        alertElement.style.left = '50%';
+                        alertElement.style.transform = 'translateX(-50%)';
+                        alertElement.style.padding = '10px';
+                        alertElement.style.backgroundColor = '#333';
+                        alertElement.style.color = '#fff';
+                        alertElement.style.zIndex = '1000'; // Ensure it appears on top of other elements
+                        document.body.appendChild(alertElement);
+
+                        setTimeout(() => {
+                            alertElement.remove();
+                        }, 2000); // Notification will auto-close after 2 seconds
                     })
                     .catch(err => {
                         console.error('Failed to copy text: ', err);

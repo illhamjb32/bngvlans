@@ -99,29 +99,48 @@ body.night-mode .dropdown select:focus, body.night-mode .dropdown input[list]:fo
     background-color: #444;
 }
 
-#resetButtonContainer {
+.button-group {
     display: flex;
-    justify-content: flex-start; /* Align to the left */
+    justify-content: space-between;
     margin-top: 20px;
 }
 
-#resetButton {
-    width: auto; /* Adjust width to fit the content */
-    padding: 8px 16px; /* Adjust padding for a smaller button */
-    background-color: #fb1a1a;
-    color: white;
+#copyButton, #resetButton {
+    width: auto;
+    padding: 8px 16px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
     transition: background-color 0.3s ease;
-    margin-left: 0; /* Align to the left */
+}
+
+#copyButton {
+    background-color: #0078d7;
+    color: white;
+}
+
+#copyButton:hover {
+    background-color: #005bb5;
+}
+
+body.night-mode #copyButton {
+    background-color: #005bb5;
+}
+
+body.night-mode #copyButton:hover {
+    background-color: #003f8a;
+}
+
+#resetButton {
+    background-color: #fb1a1a;
+    color: white;
+    width: 108.48px;
 }
 
 #resetButton:hover {
     background-color: #d20404;
 }
-
 
 .switch {
     position: absolute;
@@ -168,29 +187,4 @@ input:checked + .slider {
 
 input:checked + .slider:before {
     transform: translateX(26px);
-}
-
-#copyButton {
-    width: auto;
-    padding: 8px 16px;
-    background-color: #0078d7;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 1rem;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-#copyButton:hover {
-    background-color: #005bb5;
-}
-
-body.night-mode #copyButton {
-    background-color: #005bb5;
-}
-
-body.night-mode #copyButton:hover {
-    background-color: #003f8a;
 }
